@@ -18,13 +18,21 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerModel create(CustomerDto customerDto) {
-        Optional<CustomerModel>  customerOpt = customerRepository.findByEmail(customerDto.getEmail());
+        Optional<CustomerModel> customerEmailOpt = customerRepository.findByEmail(customerDto.getEmail());
+        CustomerModel customer = CustomerMapper.fromDtoToModel(customerDto);
+        if (customerEmailOpt.isPresent()) {
+            Optional<CustomerModel> customerPhoneOpt = customerRepository.findByTelephone(customerDto.getTelephone());
+            if (customerPhoneOpt.isPresent()) {
+                if (matchInformations(customerEmailOpt.get().getEmail(),
+                        customerEmailOpt.get().getEmail())) {
+                    customerDto.setId(customerEmailOpt.get().getId());
+                }
+            }
+        }
+        return customerRepository.save(CustomerMapper.fromDtoToModel(customerDto));
+    }
 
-       if (customerOpt.isPresent()){
-           return customerOpt.get();
-       }
-
-        CustomerModel customerModel = CustomerMapper.fromDtoToModel(customerDto);
-        return customerRepository.save(customerModel);
+    private Boolean matchInformations(String email, String emailVerified) {
+        return email.equals(emailVerified);
     }
 }

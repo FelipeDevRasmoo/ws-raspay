@@ -1,6 +1,7 @@
 package com.rasmoo.client.raspay.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,10 +14,16 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Value("${raspay.security.client.username}")
+    private String username;
+
+    @Value("${raspay.security.client.password}")
+    private String password;
+
     @Autowired
     public void configuracaoGlobal(AuthenticationManagerBuilder auth) throws Exception{
         PasswordEncoder pass = PasswordEncoderFactories.createDelegatingPasswordEncoder();
-        auth.inMemoryAuthentication().withUser("rasmooplus").password(pass.encode("r@sm00")).roles("ADMIN");
+        auth.inMemoryAuthentication().withUser(username).password(pass.encode(password)).roles("ADMIN");
     }
 
     @Override
