@@ -5,6 +5,8 @@ import com.rasmoo.client.raspay.model.CreditCardModel;
 
 public class CreditCardMapper {
 
+    private CreditCardMapper(){}
+
     public static CreditCardModel fromDtoToModel(CreditCardDto dto, String customerId) {
         return CreditCardModel.builder()
                 .number(dto.getNumber())

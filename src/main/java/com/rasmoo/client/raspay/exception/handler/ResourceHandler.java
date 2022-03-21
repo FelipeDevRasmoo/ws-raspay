@@ -1,6 +1,6 @@
 package com.rasmoo.client.raspay.exception.handler;
 
-import com.rasmoo.client.raspay.dto.ErrorResponseDto;
+import com.rasmoo.client.raspay.dto.error.ErrorResponseDto;
 import com.rasmoo.client.raspay.exception.BusinessException;
 import com.rasmoo.client.raspay.exception.NotFoundException;
 import org.springframework.http.HttpStatus;

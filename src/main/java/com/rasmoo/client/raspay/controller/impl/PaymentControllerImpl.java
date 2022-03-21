@@ -24,7 +24,7 @@ public class PaymentControllerImpl implements PaymentController {
         this.paymentService = paymentService;
     }
 
-    @PostMapping("/credit_card/")
+    @PostMapping("/credit-card/")
     public ResponseEntity<Boolean> process(@Valid @RequestBody PaymentDto dto){
         return ResponseEntity.status(HttpStatus.OK).body(paymentService.process(dto));
     }

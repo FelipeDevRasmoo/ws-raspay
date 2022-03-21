@@ -8,6 +8,8 @@ import java.time.LocalDateTime;
 
 public class OrderMapper {
 
+    private OrderMapper(){}
+
     public static OrderModel fromDtoToModel(OrderDto orderDto,CustomerModel customerModel) {
         return OrderModel.builder()
                 .id(orderDto.getId())

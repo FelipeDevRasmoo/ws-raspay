@@ -20,6 +20,7 @@ public class SwaggerConfig {
     public static final String CUSTOMER = "Cliente";
     public static final String ORDER = "Pedido";
     public static final String PAYMENT = "Pagamento";
+    public static final String PRODUCT = "Produto";
 
 
     @Bean
@@ -27,14 +28,14 @@ public class SwaggerConfig {
         return new Docket(DocumentationType.SWAGGER_2).useDefaultResponseMessages(false).groupName("v1").select()
                 .apis(RequestHandlerSelectors.basePackage("com.rasmoo.client.raspay.controller"))
                 .paths(PathSelectors.any()).build().apiInfo(this.apiInfo())
-                .tags(this.customer(),this.order(),this.payment());
+                .tags(this.customer(),this.order(),this.payment(),this.product());
     }
 
     private ApiInfo apiInfo() {
         ApiInfoBuilder apiInfoBuilder = new ApiInfoBuilder();
 
         return apiInfoBuilder.title("RasPay")
-                .description("FAKE API para credenciamento de transações financeiras")
+                .description("API para credenciamento FAKE de transações financeiras")
                 .version("1.0.0")
                 .license("Rasmoo cursos de tecnologia")
                 .build();
@@ -49,7 +50,7 @@ public class SwaggerConfig {
 
     private Tag order(){
         return new Tag(ORDER,"Para enviar os dados do produto e do cliente, é preciso enviar o 'customer_id' obtido na última chamada. " +
-                "A API irá retornar o 'order_id' que será utilizado na etapa de pagamento. A única opção transação liberada é por meio de uma cartão de " +
+                "A API irá retornar o 'order_id' que será utilizado na etapa de pagamento. A única opção transação liberada é por meio de um cartão de " +
                 "crédito.");
     }
 
@@ -57,5 +58,11 @@ public class SwaggerConfig {
         return new Tag(PAYMENT,"Para a última etapa, é necessário informar o 'customer_id', o 'order_id' e o as informações do cartão de crédito. " +
                 "Um mesmo cartão de crédito não poderá ser usado por clientes diferentes e, além disso, um mesmo cliente não poderá fazer dois pagamentos fora " +
                 "do período de renovação, mesmo que com um cartão de crédito novo.");
+    }
+
+    private Tag product(){
+        return new Tag(PRODUCT,"Um produto é criado para que seja efetuada o pagamento. Esse produto possui um nome e uma sigla " +
+                "única identificadora, que deverá ser informado pelo requisitante. Caso a sigla informada, que deverá ter de 6 a 8 caracteres " +
+                "já esteja criada no banco, a API retornará erro.");
     }
 }

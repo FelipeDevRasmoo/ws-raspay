@@ -1,10 +1,8 @@
-package com.rasmoo.client.raspay.dto;
+package com.rasmoo.client.raspay.dto.error;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-
-import java.util.List;
 
 @Data
 @AllArgsConstructor

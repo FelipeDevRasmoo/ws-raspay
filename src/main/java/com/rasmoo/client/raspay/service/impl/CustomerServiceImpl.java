@@ -26,20 +26,8 @@ public class CustomerServiceImpl implements CustomerService {
     public CustomerModel create(CustomerDto customerDto) {
         Optional<CustomerModel> customerEmailOpt = customerRepository.findByEmail(customerDto.getEmail());
         if (customerEmailOpt.isPresent()) {
-            Optional<CustomerModel> customerPhoneOpt = customerRepository.findByTelephone(customerDto.getTelephone());
-            if (customerPhoneOpt.isPresent()) {
-                if (matchInformations(customerEmailOpt.get().getEmail(),
-                        customerEmailOpt.get().getEmail())) {
-                    customerDto.setId(customerEmailOpt.get().getId());
-                } else {
-                    throw new BusinessException("Telefone está em uso por outro usuário.", HttpStatus.BAD_REQUEST);
-                }
-            }
+            return CustomerMapper.fromModelToModel(customerEmailOpt.get());
         }
         return customerRepository.save(CustomerMapper.fromDtoToModel(customerDto));
-    }
-
-    private Boolean matchInformations(String email, String emailVerified) {
-        return email.equals(emailVerified);
     }
 }

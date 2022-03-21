@@ -5,23 +5,35 @@ import com.rasmoo.client.raspay.model.CustomerModel;
 
 public class CustomerMapper {
 
-    public static CustomerModel fromDtoToModel(CustomerDto customerDto) {
+    private CustomerMapper(){}
+
+    public static CustomerModel fromDtoToModel(CustomerDto dto) {
         return CustomerModel.builder()
-                .id(customerDto.getId())
-                .firstName(customerDto.getFirstName())
-                .lastName(customerDto.getLastName())
-                .email(customerDto.getEmail())
-                .telephone(customerDto.getTelephone())
+                .id(dto.getId())
+                .firstName(dto.getFirstName())
+                .lastName(dto.getLastName())
+                .email(dto.getEmail())
+                .telephone(dto.getTelephone())
                 .build();
     }
 
-    public static CustomerDto fromModelToDto(CustomerModel customerModel) {
+    public static CustomerModel fromModelToModel(CustomerModel model) {
+        return CustomerModel.builder()
+                .id(model.getId())
+                .firstName(model.getFirstName())
+                .lastName(model.getLastName())
+                .email(model.getEmail())
+                .telephone(model.getTelephone())
+                .build();
+    }
+
+    public static CustomerDto fromModelToDto(CustomerModel model) {
         return CustomerDto.builder()
-                .id(customerModel.getId())
-                .firstName(customerModel.getFirstName())
-                .lastName(customerModel.getLastName())
-                .email(customerModel.getEmail())
-                .telephone(customerModel.getTelephone())
+                .id(model.getId())
+                .firstName(model.getFirstName())
+                .lastName(model.getLastName())
+                .email(model.getEmail())
+                .telephone(model.getTelephone())
                 .build();
     }
 }
