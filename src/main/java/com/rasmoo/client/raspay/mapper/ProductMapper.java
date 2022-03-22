@@ -11,7 +11,8 @@ public class ProductMapper {
         return ProductModel.builder()
                 .id(dto.getId())
                 .name(dto.getName())
-                .acronym(dto.getAcronym())
+                .acronym(dto.getAcronym().toUpperCase())
+                .currentPrice(dto.getCurrentPrice())
                 .build();
     }
 }

@@ -22,9 +22,9 @@ public class OrderDto {
     @NotBlank(message = "customer_id é obrigatório")
     private String customerId;
 
-    @JsonProperty("original_price")
-    @NotNull(message = "original_price é obrigatório")
-    private BigDecimal originalPrice;
+    @JsonProperty("product_acronym")
+    @NotBlank(message = "product_acronym é obrigatório")
+    private String productAcronym;
 
     private BigDecimal discount;
 }

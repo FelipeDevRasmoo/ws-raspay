@@ -39,19 +39,26 @@ public class PaymentServiceImpl implements PaymentService {
             throw new NotFoundException("Pedido não encontrado");
         }
 
-        if (customerRepository.findById(paymentDto.getCustomerId()).isEmpty()) {
+        var customer = customerRepository.findById(paymentDto.getCustomerId());
+        if (customer.isEmpty()) {
             throw new NotFoundException("Cliente não encontrado");
         }
 
-        Optional<CreditCardModel> ccOpt = creditCardRepository.findByNumber(paymentDto.getCreditCard().getNumber());
-
-        if (ccOpt.isPresent()) {
-            if (!paymentDto.getCustomerId().equals(ccOpt.get().getCustomerId())) {
-                throw new BusinessException("Pagamento negado pela processadora", HttpStatus.UNAUTHORIZED);
-            }
-        } else {
-            CreditCardModel ccModel = CreditCardMapper.fromDtoToModel(paymentDto.getCreditCard(), paymentDto.getCustomerId());
+        var ccList = creditCardRepository.findByNumber(paymentDto.getCreditCard().getNumber());
+        CreditCardModel ccModel = CreditCardMapper.fromDtoToModel(paymentDto.getCreditCard(), paymentDto.getCustomerId());
+        if (ccList.isEmpty()) {
             creditCardRepository.save(ccModel);
+        } else {
+            ccList.forEach(creditCardModel -> {
+                if (!creditCardModel.getCustomerId().equals(paymentDto.getCustomerId()) &&
+                        !creditCardModel.getDocumentNumber().equals(customer.get().getCpf())) {
+                    throw new BusinessException("Pagamento negado pela processadora", HttpStatus.UNAUTHORIZED);
+                } else if (!creditCardModel.getCustomerId().equals(paymentDto.getCustomerId()) &&
+                        creditCardModel.getDocumentNumber().equals(customer.get().getCpf())) {
+                    creditCardRepository.save(ccModel);
+                }
+            });
+
         }
         return true;
     }

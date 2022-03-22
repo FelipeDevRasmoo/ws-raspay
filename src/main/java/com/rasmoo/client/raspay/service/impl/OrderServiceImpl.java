@@ -6,46 +6,51 @@ import com.rasmoo.client.raspay.exception.NotFoundException;
 import com.rasmoo.client.raspay.mapper.OrderMapper;
 import com.rasmoo.client.raspay.model.CustomerModel;
 import com.rasmoo.client.raspay.model.OrderModel;
+import com.rasmoo.client.raspay.model.ProductModel;
 import com.rasmoo.client.raspay.repository.CustomerRepository;
 import com.rasmoo.client.raspay.repository.OrderRepository;
+import com.rasmoo.client.raspay.repository.ProductRepository;
 import com.rasmoo.client.raspay.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
 public class OrderServiceImpl implements OrderService {
 
-    private static final Long UM_ANO = 1L;
-
     private final OrderRepository orderRepository;
     private final CustomerRepository customerRepository;
+    private final ProductRepository productRepository;
 
-    @Autowired
-    OrderServiceImpl(OrderRepository orderRepository,CustomerRepository customerRepository){
+    OrderServiceImpl(OrderRepository orderRepository, CustomerRepository customerRepository,
+                     ProductRepository productRepository) {
         this.orderRepository = orderRepository;
         this.customerRepository = customerRepository;
+        this.productRepository = productRepository;
     }
 
     @Override
     public OrderModel create(OrderDto orderDto) {
-
-        Optional<OrderModel> orderModelOpt = orderRepository.findByCustomerId(orderDto.getCustomerId());
-
-        if(orderModelOpt.isPresent()){
-            OrderModel orderModelByCustomer = orderModelOpt.get();
-            LocalDateTime expired = orderModelByCustomer.getRegistedOrderDate().plusYears(UM_ANO);
-            if(LocalDateTime.now().isBefore(expired))
-                throw new BusinessException("Usuário já realizou o pagamento e não está no período de renovação", HttpStatus.BAD_REQUEST);
-        }
         Optional<CustomerModel> customerModelOpt = customerRepository.findById(orderDto.getCustomerId());
-        if (customerModelOpt.isEmpty()){
+
+        if (customerModelOpt.isEmpty()) {
             throw new NotFoundException("Cliete não encontrado");
         }
-        OrderModel orderModel = OrderMapper.fromDtoToModel(orderDto,customerModelOpt.get());
+
+        Optional<ProductModel> productModelOpt = productRepository.findByAcronym(orderDto.getProductAcronym().toUpperCase());
+        if (productModelOpt.isEmpty()) {
+            throw new NotFoundException("Sigla do produto inexistente");
+        }
+
+        OrderModel orderModel = OrderMapper.fromDtoToModel(orderDto, customerModelOpt.get(), productModelOpt.get());
+        if (orderDto.getDiscount().intValue() > 0) {
+            if (orderDto.getDiscount().compareTo(productModelOpt.get().getCurrentPrice()) > 0) {
+                throw new BusinessException("Desconto não pode ser maior que o valor original",HttpStatus.BAD_REQUEST);
+            }
+            orderModel.setOriginalPrice(productModelOpt.get().getCurrentPrice().subtract(orderDto.getDiscount()));
+        }
+
         return orderRepository.save(orderModel);
     }
 }

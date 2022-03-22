@@ -9,7 +9,11 @@ import nonapi.io.github.classgraph.json.Id;
 import org.springframework.data.mongodb.core.index.Indexed;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Document("products")
@@ -17,7 +21,7 @@ import java.time.LocalDate;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductModel {
+public class ProductModel implements Serializable {
 
     @Id
     private String id;
@@ -28,6 +32,10 @@ public class ProductModel {
 
     @NotBlank
     private String name;
+
+    @NotNull
+    @JsonProperty("current_price")
+    private BigDecimal currentPrice;
 
     @NotNull
     @JsonProperty("dt_creation")

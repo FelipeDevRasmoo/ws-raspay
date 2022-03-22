@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.br.CPF;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -30,8 +31,11 @@ public class CustomerDto {
     @Email(message = "email precisa ser válido")
     private String email;
 
-    @Size(max = 11, message = "telephone precisa conter 2 dígitos do DDD + 9 dígitos do número")
-    @Size(min = 11, message = "telephone precisa conter 2 dígitos do DDD + 9 dígitos do número")
+    @NotBlank(message = "cpf deve ser preenchido")
+    @CPF(message = "cpf precisa ser valido")
+    private String cpf;
+
+    @Size(min = 11,max = 11, message = "telephone precisa conter 2 dígitos do DDD + 9 dígitos do número")
     @NotBlank(message = "telephone é obrigatório")
     private String telephone;
 }
