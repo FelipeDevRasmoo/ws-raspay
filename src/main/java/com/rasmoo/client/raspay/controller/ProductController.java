@@ -1,7 +1,6 @@
 package com.rasmoo.client.raspay.controller;
 
 import com.rasmoo.client.raspay.config.SwaggerConfig;
-import com.rasmoo.client.raspay.dto.PaymentDto;
 import com.rasmoo.client.raspay.dto.ProductDto;
 import com.rasmoo.client.raspay.model.ProductModel;
 import io.swagger.annotations.Api;
@@ -12,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestBody;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @Api(tags = SwaggerConfig.PRODUCT)
 public interface ProductController {
@@ -23,4 +23,11 @@ public interface ProductController {
             @ApiResponse(code = 500, message = "Erro interno no serviço"),
     })
     ResponseEntity<ProductModel> create(@Valid @RequestBody ProductDto dto);
+
+    @ApiOperation(value = "Lista todos os produtos")
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Sucesso na consulta"),
+            @ApiResponse(code = 500, message = "Erro interno no serviço"),
+    })
+    ResponseEntity<List<ProductModel>> readAll();
 }

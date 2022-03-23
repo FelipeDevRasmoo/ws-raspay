@@ -30,6 +30,6 @@ public class CustomerControllerImpl implements CustomerController {
 
     @PostMapping
     public ResponseEntity<CustomerModel> createCustomer(@Valid  @RequestBody CustomerDto customerDto){
-        return ResponseEntity.status(HttpStatus.OK).body(this.customerService.create(customerDto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(this.customerService.create(customerDto));
     }
 }

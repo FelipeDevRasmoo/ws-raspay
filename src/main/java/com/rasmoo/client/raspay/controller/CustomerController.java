@@ -15,7 +15,7 @@ public interface CustomerController {
 
     @ApiOperation(value = "Cadastrar um novo cliente")
     @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Customer criado ou atualizado com sucesso"),
+            @ApiResponse(code = 201, message = "Customer criado ou atualizado com sucesso"),
             @ApiResponse(code = 400, message = "Erro na requisição enviada pelo cliente"),
             @ApiResponse(code = 500, message = "Erro interno no serviço"),
     })

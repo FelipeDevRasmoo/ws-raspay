@@ -8,6 +8,7 @@ import com.rasmoo.client.raspay.service.ProductService;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -23,5 +24,10 @@ public class ProductServiceImpl implements ProductService {
         ProductModel model = ProductMapper.fromDtoToModel(dto);
         model.setDtCreation(LocalDate.now());
         return productRepository.save(model);
+    }
+
+    @Override
+    public List<ProductModel> readAll() {
+        return productRepository.findAll();
     }
 }
