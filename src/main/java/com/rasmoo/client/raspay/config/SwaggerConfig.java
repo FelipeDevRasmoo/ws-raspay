@@ -62,7 +62,7 @@ public class SwaggerConfig {
 
     private Tag product(){
         return new Tag(PRODUCT,"Um produto é criado para que seja efetuada o pagamento. Esse produto possui um nome e uma sigla " +
-                "única identificadora, que deverá ser informado pelo requisitante. Caso a sigla informada, que deverá ter de 6 a 8 caracteres " +
+                "única identificadora, que deverá ser informado pelo requisitante. Caso a sigla informada, que deverá ter de 6 a 10 caracteres " +
                 "já esteja criada no banco, a API retornará erro.");
     }
 }
