@@ -13,17 +13,17 @@ public class CustomerMapper {
                 .firstName(dto.getFirstName())
                 .lastName(dto.getLastName())
                 .email(dto.getEmail())
-                .telephone(dto.getTelephone())
+                .cpf(dto.getCpf())
                 .build();
     }
 
-    public static CustomerModel fromModelToModel(CustomerModel model) {
+    public static CustomerModel fromModelToModel(CustomerModel curret, CustomerDto update) {
         return CustomerModel.builder()
-                .id(model.getId())
-                .firstName(model.getFirstName())
-                .lastName(model.getLastName())
-                .email(model.getEmail())
-                .telephone(model.getTelephone())
+                .id(curret.getId())
+                .cpf(curret.getCpf())
+                .email(curret.getEmail())
+                .firstName(update.getFirstName())
+                .lastName(update.getLastName())
                 .build();
     }
 
@@ -33,7 +33,6 @@ public class CustomerMapper {
                 .firstName(model.getFirstName())
                 .lastName(model.getLastName())
                 .email(model.getEmail())
-                .telephone(model.getTelephone())
                 .build();
     }
 }

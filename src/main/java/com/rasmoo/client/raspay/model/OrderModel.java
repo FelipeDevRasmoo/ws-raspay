@@ -1,6 +1,7 @@
 package com.rasmoo.client.raspay.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -9,7 +10,7 @@ import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -24,17 +25,17 @@ public class OrderModel implements Serializable {
     @Id
     private String id;
 
-    @NotNull(message = "Customer deve ser informado no pedido")
-    private CustomerModel customer;
+    @NotBlank(message = "Customer deve ser informado no pedido")
+    @JsonProperty("customer")
+    private String customerId;
 
-    @JsonProperty("original_price")
     private BigDecimal originalPrice;
 
     private BigDecimal discount;
 
-    @JsonProperty("dt_registed_order=")
+    @JsonIgnore
     private LocalDateTime dtRegistedOrder;
 
-    @JsonProperty("Product")
+    @JsonProperty("product")
     private ProductModel productModel;
 }

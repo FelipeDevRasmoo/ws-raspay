@@ -33,7 +33,6 @@ public class CreditCardDto {
     private Long year;
 
     @CPF(message = "CPF precisa ser válido")
-    @JsonProperty(value = "document_number")
     private String documentNumber;
 
     private Long installments;

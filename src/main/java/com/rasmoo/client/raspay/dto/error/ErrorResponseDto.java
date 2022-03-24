@@ -8,6 +8,5 @@ import lombok.Data;
 @AllArgsConstructor
 public class ErrorResponseDto {
     private String messages;
-    @JsonProperty("status_code")
     private Integer statusCode;
 }

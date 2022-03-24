@@ -1,5 +1,6 @@
 package com.rasmoo.client.raspay.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,18 +28,17 @@ public class ProductModel implements Serializable {
     private String id;
 
     @Indexed(unique = true)
-    @Size(min = 6,max = 8)
+    @Size(min = 6,max = 10)
     private String acronym;
 
     @NotBlank
     private String name;
 
     @NotNull
-    @JsonProperty("current_price")
     private BigDecimal currentPrice;
 
     @NotNull
-    @JsonProperty("dt_creation")
+    @JsonIgnore
     private LocalDate dtCreation = LocalDate.now();
 
 }

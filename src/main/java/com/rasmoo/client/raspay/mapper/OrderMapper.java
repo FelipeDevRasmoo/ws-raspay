@@ -11,10 +11,10 @@ public class OrderMapper {
 
     private OrderMapper(){}
 
-    public static OrderModel fromDtoToModel(OrderDto orderDto, CustomerModel customerModel, ProductModel productModel) {
+    public static OrderModel fromDtoToModel(OrderDto orderDto, ProductModel productModel) {
         return OrderModel.builder()
                 .id(orderDto.getId())
-                .customer(customerModel)
+                .customerId(orderDto.getCustomerId())
                 .originalPrice(productModel.getCurrentPrice())
                 .discount(orderDto.getDiscount())
                 .dtRegistedOrder(LocalDateTime.now())

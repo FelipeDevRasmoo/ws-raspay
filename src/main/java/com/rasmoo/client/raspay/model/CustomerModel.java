@@ -25,22 +25,16 @@ public class CustomerModel implements Serializable {
     private String id;
 
     @NotBlank
-    @Indexed(unique=true)
     private String email;
 
     @NotBlank
-    @Indexed(unique=true)
-    private String telephone;
-
-    @NotBlank
-    @JsonProperty("first_name")
     private String firstName;
 
     @NotBlank
-    @JsonProperty("last_name")
     private String lastName;
 
     @NotBlank
     @CPF
+    @Indexed(unique = true)
     private String cpf;
 }

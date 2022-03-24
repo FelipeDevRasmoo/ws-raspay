@@ -43,7 +43,7 @@ public class OrderServiceImpl implements OrderService {
             throw new NotFoundException("Sigla do produto inexistente");
         }
 
-        OrderModel orderModel = OrderMapper.fromDtoToModel(orderDto, customerModelOpt.get(), productModelOpt.get());
+        OrderModel orderModel = OrderMapper.fromDtoToModel(orderDto, productModelOpt.get());
         if (orderDto.getDiscount().intValue() > 0) {
             if (orderDto.getDiscount().compareTo(productModelOpt.get().getCurrentPrice()) > 0) {
                 throw new BusinessException("Desconto não pode ser maior que o valor original",HttpStatus.BAD_REQUEST);

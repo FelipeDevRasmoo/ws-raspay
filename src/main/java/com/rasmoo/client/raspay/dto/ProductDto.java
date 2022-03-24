@@ -21,7 +21,7 @@ public class ProductDto {
     private String id;
 
     @NotBlank(message = "acronym é obrigatório")
-    @Size(min = 6,max = 8)
+    @Size(min = 6,max = 10)
     private String acronym;
 
     @NotBlank(message = "name é obrigatório")

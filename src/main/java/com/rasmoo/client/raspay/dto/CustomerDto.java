@@ -20,12 +20,10 @@ public class CustomerDto {
 
     private String id;
 
-    @NotBlank(message = "first_name é obrigatório")
-    @JsonProperty(value = "first_name")
+    @NotBlank(message = "firstName é obrigatório")
     private String firstName;
 
-    @NotBlank(message = "last_name é obrigatório")
-    @JsonProperty(value = "last_name")
+    @NotBlank(message = "lastName é obrigatório")
     private String lastName;
 
     @Email(message = "email precisa ser válido")
@@ -34,8 +32,4 @@ public class CustomerDto {
     @NotBlank(message = "cpf deve ser preenchido")
     @CPF(message = "cpf precisa ser valido")
     private String cpf;
-
-    @Size(min = 11,max = 11, message = "telephone precisa conter 2 dígitos do DDD + 9 dígitos do número")
-    @NotBlank(message = "telephone é obrigatório")
-    private String telephone;
 }

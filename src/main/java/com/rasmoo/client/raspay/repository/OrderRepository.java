@@ -6,5 +6,4 @@ import org.springframework.data.mongodb.repository.MongoRepository;
 import java.util.Optional;
 
 public interface OrderRepository extends MongoRepository<OrderModel,String> {
-    Optional<OrderModel> findByCustomerId(String customerId);
 }

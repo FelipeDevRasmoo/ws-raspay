@@ -18,12 +18,10 @@ public class OrderDto {
 
     private String id;
 
-    @JsonProperty("customer_id")
-    @NotBlank(message = "customer_id é obrigatório")
+    @NotBlank(message = "customerId é obrigatório")
     private String customerId;
 
-    @JsonProperty("product_acronym")
-    @NotBlank(message = "product_acronym é obrigatório")
+    @NotBlank(message = "productAcronym é obrigatório")
     private String productAcronym;
 
     private BigDecimal discount;

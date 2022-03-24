@@ -15,7 +15,7 @@ import java.io.Serializable;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Document("credit_card")
+@Document("creditCard")
 @Builder
 public class CreditCardModel implements Serializable {
 
@@ -34,14 +34,12 @@ public class CreditCardModel implements Serializable {
     @NotNull
     private Long year;
 
-    @JsonProperty("document_number")
     @NotBlank
     private String documentNumber;
 
     @NotNull
     private Long installments;
 
-    @JsonProperty("customer_id")
     @NotBlank
     private String customerId;
 }

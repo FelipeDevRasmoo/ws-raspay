@@ -9,5 +9,5 @@ public interface CustomerRepository extends MongoRepository<CustomerModel,String
 
     Optional<CustomerModel> findByEmail(String email);
 
-    Optional<CustomerModel> findByTelephone(String telephone);
+    Optional<CustomerModel> findByCpf(String cpf);
 }
