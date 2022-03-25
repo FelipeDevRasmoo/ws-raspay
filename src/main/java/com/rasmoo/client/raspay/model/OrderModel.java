@@ -26,7 +26,6 @@ public class OrderModel implements Serializable {
     private String id;
 
     @NotBlank(message = "Customer deve ser informado no pedido")
-    @JsonProperty("customer")
     private String customerId;
 
     private BigDecimal originalPrice;
