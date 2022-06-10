@@ -28,7 +28,7 @@ public class ProductModel implements Serializable {
     private String id;
 
     @Indexed(unique = true)
-    @Size(min = 6,max = 10)
+    @Size(min = 6,max = 20)
     private String acronym;
 
     @NotBlank

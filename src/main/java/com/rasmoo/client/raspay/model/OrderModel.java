@@ -3,6 +3,7 @@ package com.rasmoo.client.raspay.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.rasmoo.client.raspay.dto.ProductDto;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,5 +37,5 @@ public class OrderModel implements Serializable {
     private LocalDateTime dtRegistedOrder;
 
     @JsonProperty("product")
-    private ProductModel productModel;
+    private ProductDto product;
 }

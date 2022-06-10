@@ -15,4 +15,13 @@ public class ProductMapper {
                 .currentPrice(dto.getCurrentPrice())
                 .build();
     }
+
+    public static ProductDto fromModelToDto(ProductModel model) {
+        return ProductDto.builder()
+                .id(model.getId())
+                .name(model.getName())
+                .acronym(model.getAcronym().toUpperCase())
+                .currentPrice(model.getCurrentPrice())
+                .build();
+    }
 }
