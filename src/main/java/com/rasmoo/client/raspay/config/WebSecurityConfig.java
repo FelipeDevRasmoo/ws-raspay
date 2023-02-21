@@ -21,13 +21,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     private String password;
 
     @Autowired
-    public void configuracaoGlobal(AuthenticationManagerBuilder auth) throws Exception{
+    public void configuracaoGlobal(AuthenticationManagerBuilder auth) throws Exception {
         PasswordEncoder pass = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         auth.inMemoryAuthentication().withUser(username).password(pass.encode(password)).roles("ADMIN");
     }
 
     @Override
-    protected void configure(HttpSecurity http) throws Exception{
+    protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable().authorizeRequests()
                 .anyRequest()
                 .authenticated()
