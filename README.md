@@ -10,4 +10,4 @@ Essa API será consumida pela ws-rasmoo-plus, simulando um serviço de credencia
 
 **senha** : r@sm00
 
-**end-point** : [ws-raspay](http://ec2-44-201-234-74.compute-1.amazonaws.com:8081/ws-raspay/swagger-ui/index.html)
+**end-point** : [ws-raspay](https://ws-raspay.herokuapp.com/ws-raspay/swagger-ui/index.html#/)
